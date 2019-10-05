@@ -1,0 +1,38 @@
+POST /graphql HTTP/1.1
+Host: localhost:4000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+User-Agent: PostmanRuntime/7.17.1
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: 41b6ad3d-defc-40e3-9bc7-9da6246d04f5,97544fab-04ba-4998-a7f0-30d435a03a01
+Host: localhost:4000
+Accept-Encoding: gzip, deflate
+Content-Length: 93112
+Connection: keep-alive
+cache-control: no-cache
+
+
+Content-Disposition: form-data; name="operations"
+
+{"query": "mutation($file: Upload!, $metadata: FileMetadata){ uploadFile(file: $file, metadata: $metadata){filename, mimetype, metadata{referenceName, region} url} }", "variables": {"metadata": {"referenceName": "m-11", "region": "israel"}}}
+------WebKitFormBoundary7MA4YWxkTrZu0gW--,
+Content-Disposition: form-data; name="operations"
+
+{"query": "mutation($file: Upload!, $metadata: FileMetadata){ uploadFile(file: $file, metadata: $metadata){filename, mimetype, metadata{referenceName, region} url} }", "variables": {"metadata": {"referenceName": "m-11", "region": "israel"}}}
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+Content-Disposition: form-data; name="map"
+
+{"0": ["variables.file"]}
+------WebKitFormBoundary7MA4YWxkTrZu0gW--,
+Content-Disposition: form-data; name="operations"
+
+{"query": "mutation($file: Upload!, $metadata: FileMetadata){ uploadFile(file: $file, metadata: $metadata){filename, mimetype, metadata{referenceName, region} url} }", "variables": {"metadata": {"referenceName": "m-11", "region": "israel"}}}
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+Content-Disposition: form-data; name="map"
+
+{"0": ["variables.file"]}
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+Content-Disposition: form-data; name="0"; filename="/C:/Users/Yarin/Desktop/MACHANET_Kickoff_V1.jpg
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

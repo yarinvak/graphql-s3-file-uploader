@@ -45,15 +45,17 @@ const uploadFile = async (parent, {file, metadata}) => {
         buffer.push(chunk);
     }
 
+    let url:string;
     try {
         let res = await handleFileData(buffer, filename, mimetype);
-        console.log(`File uploaded successfully at ${res.Location}`)
+        url = res.Location;
+        console.log(`File uploaded successfully at ${url}`)
     }
     catch (err) {
         console.log(err);
     }
 
-    return {filename, mimetype, encoding, metadata};
+    return {filename, mimetype, encoding, url, metadata};
 };
 
 export {uploadFile};
