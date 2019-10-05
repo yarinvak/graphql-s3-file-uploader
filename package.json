@@ -2,10 +2,10 @@
   "name": "graphql-s3-file-uploader",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && ts-node index.ts",
+    "start": "tsc && ts-node src/index.ts",
     "build": "tsc"
   },
   "repository": {
