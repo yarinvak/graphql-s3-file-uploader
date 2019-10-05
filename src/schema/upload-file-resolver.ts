@@ -34,11 +34,11 @@ let handleFileData = async function (buffer: Array<any>, filename: string, mimet
 };
 
 const uploadFile = async (parent, {file, metadata}) => {
-    const {stream, filename, mimetype, encoding} = await file;
+    const {createReadStream, filename, mimetype, encoding} = await file;
     await metadata;
     validateFile(mimetype);
     let buffer: Array<any> = [];
-    let reader = as.createReader(stream);
+    let reader = as.createReader(createReadStream());
     let length=0;
     let chunk;
     while (null !== (chunk = await reader.readAsync())) {
