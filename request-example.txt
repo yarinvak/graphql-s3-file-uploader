@@ -32,7 +32,7 @@ Content-Disposition: form-data; name="map"
 
 {"0": ["variables.file"]}
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
-Content-Disposition: form-data; name="0"; filename="/C:/Users/Yarin/Desktop/MACHANET_Kickoff_V1.jpg
+Content-Disposition: form-data; name="0"; filename="/C:/temp.jpg
 
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
