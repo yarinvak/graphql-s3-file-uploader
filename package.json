@@ -21,6 +21,7 @@
   "dependencies": {
     "@types/dotenv": "^6.1.1",
     "apollo-server": "^2.9.4",
+    "awaitify-stream": "^1.0.2",
     "aws-sdk": "^2.543.0",
     "dotenv": "^8.1.0",
     "graphql": "^14.5.8",

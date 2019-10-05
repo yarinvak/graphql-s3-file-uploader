@@ -1,4 +1,4 @@
-import * as fs from "fs";
+const as = require('awaitify-stream');
 
 const aws = require('aws-sdk');
 
@@ -9,22 +9,16 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-let uploadToS3 = async (filePath, filename, mimetype) => {
-    return fs.readFile(filePath, async (err, data) => {
-        if (err) throw err;
-        const params = {
-            Bucket: 'graphql-files', // pass your bucket name
-            Key: filename, // file will be saved as testBucket/contacts.csv
-            Body: data,
-            ContentType: mimetype,
-            ContentDisposition: 'inline',
-            ACL: 'public-read'
-        };
-        await s3.upload(params, function (s3Err, data) {
-            if (s3Err) throw s3Err;
-            console.log(`File uploaded successfully at ${data.Location}`)
-        });
-    });
+let uploadToS3 = async (data: Buffer, filename: string, mimetype: string) => {
+    const params = {
+        Bucket: 'graphql-files', // pass your bucket name
+        Key: filename, // file will be saved as testBucket/contacts.csv
+        Body: data,
+        ContentType: mimetype,
+        ContentDisposition: 'inline',
+        ACL: 'public-read'
+    };
+    return s3.upload(params).promise();
 };
 
 let validateFile = function (mimetype: any) {
@@ -34,43 +28,30 @@ let validateFile = function (mimetype: any) {
     }
 };
 
-let handleFileData = function (buffer: Array<any>, filename: string, mimetype: string) {
+let handleFileData = async function (buffer: Array<any>, filename: string, mimetype: string) {
     let data = Buffer.concat(buffer);
-    fs.writeFile(`temp/${filename}`, data, {flag: 'w'}, async (err) => {
-            if (err) {
-                throw err;
-            }
-            console.log("file saved temporarily");
-            try {
-                await uploadToS3(`temp/${filename}`, filename, mimetype);
-                console.log("successfully uploaded");
-            }
-            catch (err){
-                console.log(err);
-            }
-        }
-    );
+    return uploadToS3(data, filename, mimetype);
 };
 
 const uploadFile = async (parent, {file, metadata}) => {
     const {stream, filename, mimetype, encoding} = await file;
     await metadata;
     validateFile(mimetype);
-
     let buffer: Array<any> = [];
+    let reader = as.createReader(stream);
 
-    stream.on('ready', () => {
-        console.log("stream is ready");
-    });
-
-    stream.on('data', function (chunk) {
+    let chunk;
+    while (null !== (chunk = await reader.readAsync())) {
         buffer.push(chunk);
-    });
+    }
 
-    stream.on('end', () => {
-        console.log("stream is closed");
-        handleFileData(buffer, filename, mimetype);
-    });
+    try {
+        let res = await handleFileData(buffer, filename, mimetype);
+        console.log(`File uploaded successfully at ${res.Location}`)
+    }
+    catch (err) {
+        console.log(err);
+    }
 
     return {filename, mimetype, encoding, metadata};
 };
